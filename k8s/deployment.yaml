@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-app
 spec:
-  replicas: 7
+  replicas: 4
   selector:
     matchLabels:
       app: my-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: redis
+        image: nginx
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000

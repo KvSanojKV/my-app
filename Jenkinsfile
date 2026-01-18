@@ -1,18 +1,13 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t my-app:latest .'
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh 'kubectl apply -f k8s/'
-            }
-        }
+stage('Deploy to Kubernetes') {
+    environment {
+        KUBECONFIG = '/home/jenkins/.kube/config'
+    }
+    steps {
+        sh '''
+          kubectl config current-context
+          kubectl get nodes
+          kubectl apply -f k8s/
+        '''
     }
 }
 

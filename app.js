@@ -1,6 +1,6 @@
 const http = require('http');
 
 http.createServer((req, res) => {
-  res.end("Sanoj updated with github action!");
+  res.end("Sanoj reverted to previous!");
 }).listen(3000);
 

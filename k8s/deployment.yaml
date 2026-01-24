@@ -4,6 +4,10 @@ metadata:
   name: my-app
 spec:
   replicas: 10
+  strategy:
+   type: Recreate
+   
+
   selector:
     matchLabels:
       app: my-app
@@ -14,7 +18,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: nginx
+        image: nginx:1.29
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

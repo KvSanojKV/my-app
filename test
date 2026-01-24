@@ -1,0 +1,12 @@
+
+    runs-on: ubuntu-latest
+     steps:
+      - name: Build and Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v4
+        with:
+         image: sanojkv/myapp
+         registry: docker.io
+         username: ${{ secrets.DOCKER_USERNAME }}
+         password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)

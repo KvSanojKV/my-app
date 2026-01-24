@@ -21,4 +21,4 @@ jobs:
     - name: Build and Push Docker Image
       run: |
         docker build --no-cache -t sanojkv/myapp:${{ github.sha }} .
-        docker push sanojkv/myapp:${{ github.sha }}
+        docker push sanojkv/myapp:latest

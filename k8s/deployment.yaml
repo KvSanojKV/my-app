@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-app
 spec:
-  replicas: 1
+  replicas: 5
   strategy:
    type: Recreate
    
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: nginx:1.24
+        image: sanojkv/myapp:main-12cb9c9
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

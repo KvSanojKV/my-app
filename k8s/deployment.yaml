@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-app
 spec:
-  replicas: 20
+  replicas: 1
   strategy:
    type: Recreate
    

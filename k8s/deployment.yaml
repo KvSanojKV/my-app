@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: sanojkv/myapp
+        image: sanojkv/myapp:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

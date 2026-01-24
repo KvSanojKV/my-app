@@ -1,6 +1,6 @@
 const http = require('http');
 
 http.createServer((req, res) => {
-  res.end("Hello!");
+  res.end("Hello!\n");
 }).listen(3000);
 

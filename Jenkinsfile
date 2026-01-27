@@ -22,14 +22,11 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            steps {
-                withCredentials([
-                    string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_TOKEN')
-                ]) {
-                    sh """
-                      echo "$DOCKER_TOKEN" | docker login -u sanjayy8790 --password-stdin
-                      docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
-                    """
+            steps{
+                withCredentials([usernamePassword(credentialsId:"dockerhub-credentials",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+                    sh "docker tag node-app-test-new ${env.dockerHubUser}/node-app-test-new:latest"
+                    sh "docker push ${env.dockerHubUser}/node-app-test-new:latest" 
                 }
             }
         }

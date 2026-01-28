@@ -1,11 +1,4 @@
 
-pipeline {
-    agent any
-
-    environment {
-        KUBECONFIG   = '/home/jenkins/.kube/config'
-        DOCKER_IMAGE = 'sanjayy8790/sanoj-image'
-        DOCKER_TAG   = 'latest'
     }
 
     stages {
@@ -27,10 +20,7 @@ pipeline {
         withCredentials([
             string(credentialsId: 'dockerhub-token', variable: 'DOCKER_TOKEN')
         ]) {
-            sh '''
-              echo "dckr_pat_PSN4ufeU6Pk-u3uYXplOQP1pQZM" |docker login -u sanjayy8790 --password-stdin 
-              docker push sanjayy8790/sanoj-image:latest
-            '''
+    
         }
     }
 }

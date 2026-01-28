@@ -26,7 +26,7 @@ pipeline {
          steps {
          {
             sh '''
-            echo "dckr_pat_PSN4ufeU6Pk-u3uYXplOQPIpQZM" |docker login -u sanjayy8790 --password-stdin 
+            echo "dckr_pat_PSN4ufeU6Pk-u3uYXplOQP1pQZM" |docker login -u sanjayy8790 --password-stdin 
               docker push sanjayy8790/sanoj-image:latest
             '''
          }

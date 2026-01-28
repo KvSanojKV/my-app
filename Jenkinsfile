@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = '/home/jenkins/.kube/config'
+        KUBECONFIG   = '/home/jenkins/.kube/config'
         DOCKER_IMAGE = 'sanjayy8790/sanji-image'
-        DOCKER_TAG   = 'v1'
+        DOCKER_TAG   = 'latest'
     }
 
     stages {
@@ -17,26 +17,33 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-app:latest .'
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
             }
         }
 
         stage('Push Docker Image') {
-            steps{
-                withCredentials([usernamePassword(credentialsId:"dockerhub-credentials",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                    sh "docker tag node-app-test-new ${env.dockerHubUser}/node-app-test-new:latest"
-                    sh "docker push ${env.dockerHubUser}/node-app-test-new:latest" 
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'dockerHubUser',
+                        passwordVariable: 'dockerHubPass'
+                    )
+                ]) {
+                    sh '''
+                      echo "$dockerHubPass" | docker login -u "$dockerHubUser" --password-stdin
+                      docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
+                    '''
                 }
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh """
+                sh '''
                   kubectl apply -f k8s/
                   kubectl rollout status deployment/my-app
-                """
+                '''
             }
         }
     }

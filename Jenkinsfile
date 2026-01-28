@@ -22,18 +22,17 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            steps {
-                withCredentials([
-                    string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_TOKEN')
-                ]) {
-                    sh """
-                      echo "$DOCKER_TOKEN" | docker login -u sanjayy8790 --password-stdin
-                      docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
-                    """
-                }
-            }
-        }
-
+         steps {
+          withCredentials([
+            string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_TOKEN')
+          ]) {
+            sh '''
+              docker login -u sanjayy8790 --password-stdin <<< "$DOCKER_TOKEN"
+              docker push sanjayy8790/sanoj-image:latest
+            '''
+         }
+     }
+ }
 
         stage('Deploy to Kubernetes') {
             steps {

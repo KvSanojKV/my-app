@@ -32,7 +32,7 @@ pipeline {
             string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_TOKEN')
           ]) {
             sh '''
-              docker login -u sanjayy8790 --password-stdin <<< "$DOCKER_TOKEN"
+            docker login -u sanjayy8790 --password-stdin 
               docker push sanjayy8790/sanoj-image:latest
             '''
          }

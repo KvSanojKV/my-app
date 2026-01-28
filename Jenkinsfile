@@ -23,14 +23,18 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-         steps {
-         {
-            sh echo "dckr_pat_PSN4ufeU6Pk-u3uYXplOQP1pQZM" |docker login -u sanjayy8790 --password-stdin 
-            sh  docker push sanjayy8790/sanoj-image:latest
-            
-         }
-         }
+        steps {
+        withCredentials([
+            string(credentialsId: 'dockerhub-token', variable: 'DOCKER_TOKEN')
+        ]) {
+            sh '''
+              echo "dckr_pat_PSN4ufeU6Pk-u3uYXplOQP1pQZM" |docker login -u sanjayy8790 --password-stdin 
+              docker push sanjayy8790/sanoj-image:latest
+            '''
         }
+    }
+}
+
 
         stage('Deploy to Kubernetes') {
             steps {

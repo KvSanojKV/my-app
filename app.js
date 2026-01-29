@@ -1,6 +1,6 @@
 const http = require('http');
 
 http.createServer((req, res) => {
-  res.end("nginx!\n");
+  res.end("jenkins build pipeline testing!\n");
 }).listen(3000);
 

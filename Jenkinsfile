@@ -30,7 +30,7 @@ pipeline {
             sh '''
               echo "$DOCKER_TOKEN" | docker login -u sanojkv --password-stdin
 
-              docker push sanojkvjenkins-build:latest
+              docker push sanojkv/jenkins-build:latest
             '''
          }
      }

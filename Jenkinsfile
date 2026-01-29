@@ -28,7 +28,8 @@ pipeline {
             string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_TOKEN')
           ]) {
             sh '''
-            docker login -u sanojkv --password-stdin
+              echo "$DOCKER_TOKEN" | docker login -u sanojkv --password-stdin
+
               docker push sanojkvjenkins-build:latest
             '''
          }

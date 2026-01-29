@@ -16,7 +16,7 @@ spec:
         app: my-app
     spec:
       containers:
-      - name: my-app
+      - name: myjenkins-app
         image: sanojkv/jenkins-build:latest
         imagePullPolicy: Always
         ports:

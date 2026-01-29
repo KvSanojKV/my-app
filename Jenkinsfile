@@ -1,4 +1,11 @@
 
+pipeline {
+    agent any
+
+    environment {
+        KUBECONFIG   = '/home/jenkins/.kube/config'
+        DOCKER_IMAGE = 'sanojkv/jenkins-build'
+        DOCKER_TAG   = 'latest'
     }
 
     stages {
@@ -16,15 +23,17 @@
         }
 
         stage('Push Docker Image') {
-        steps {
-        withCredentials([
-            string(credentialsId: 'dockerhub-token', variable: 'DOCKER_TOKEN')
-        ]) {
-    
-        }
-    }
-}
-
+         steps {
+          withCredentials([
+            string(credentialsId: 'dockerhub-credentials', variable: 'DOCKER_TOKEN')
+          ]) {
+            sh '''
+            docker login -u sanojkv --password-stdin
+              docker push sanojkvjenkins-build:latest
+            '''
+         }
+     }
+ }
 
         stage('Deploy to Kubernetes') {
             steps {

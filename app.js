@@ -1,6 +1,6 @@
 const http = require('http');
 
 http.createServer((req, res) => {
-  res.end("jenkins build pipeline testing from feature branch!\n");
+  res.end("jenkins build pipeline testing from main branch!\n");
 }).listen(3000);
 
